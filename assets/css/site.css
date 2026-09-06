@@ -1,0 +1,330 @@
+/* ==========================================================================
+   Postal Media: black, loud, one accent at a time
+   --------------------------------------------------------------------------
+   One ground everywhere: near-black. The studio's red, Content's orange and
+   Plateau's gold each take over a page in turn (see [data-world] at the
+   bottom), so every app still has its own world without the background
+   flipping between light and dark as you move around the site.
+
+   The fun is in scale and motion: very large type, stickers that sit
+   slightly off-square, a word that changes in the headline. Never decoration
+   for its own sake. Everything is one stylesheet, no build.
+   ========================================================================== */
+
+:root {
+  --bg:        #0A0A0A;
+  --bg-raise:  #141414;
+  --fg:        #F4F1EA;
+  --fg-soft:   #C9C5BD;
+  --muted:     #8F8B84;
+  --line:      #262626;
+
+  --red:       #EE4C44;   /* sampled from the stamp */
+  --orange:    #FF7E00;   /* sampled from Content's icon */
+  --gold:      #E0AC2E;   /* sampled from Plateau's slate */
+
+  --accent:    var(--red);
+  --on-accent: #0A0A0A;
+
+  --measure: 36rem;
+  --gap: clamp(1.25rem, 4vw, 3.5rem);
+
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Helvetica, Arial, sans-serif;
+  --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--sans);
+  font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.wrap { width: min(78rem, 100% - 2 * var(--gap)); margin-inline: auto; }
+
+a { color: inherit; }
+::selection { background: var(--accent); color: var(--on-accent); }
+
+/* height:auto is not optional. Every img carries width/height attributes so
+   the layout reserves space and nothing jumps on load; without this the
+   attribute height survives while max-width shrinks the width, and every
+   screenshot on the site gets squashed. */
+img { max-width: 100%; height: auto; display: block; }
+/* A grid track's minimum is its content's min-content width, and for an
+   image that is the full pixel width of the file, so a phone screenshot in
+   a 1fr column pushes the whole page wider than the viewport. Letting every
+   grid child shrink to nothing puts max-width back in charge. */
+.hero > *, .idx > *, .feature > *, .roster > *, .grid-shots > * { min-width: 0; }
+
+/* --- Masthead --------------------------------------------------------------
+   Sticks to the top with the page showing through, so the wordmark is always
+   there and the colour of the current link tells you which world you're in. */
+
+.masthead {
+  position: sticky; top: 0; z-index: 10;
+  background: color-mix(in srgb, var(--bg) 82%, transparent);
+  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--line);
+  padding-block: 1rem;
+}
+.masthead .wrap { display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
+.masthead a { text-decoration: none; }
+.masthead .home { font-weight: 900; letter-spacing: -0.02em; font-size: 1.1rem; }
+.masthead .home:hover { color: var(--accent); }
+.masthead nav { margin-left: auto; display: flex; gap: 1.5rem; }
+.masthead nav a { color: var(--muted); font-weight: 600; font-size: 0.95rem; }
+.masthead nav a:hover { color: var(--fg); }
+.masthead [aria-current="page"] { color: var(--accent); }
+.masthead [aria-current="page"]:hover { color: var(--accent); }
+@media (max-width: 40rem) {
+  .masthead .wrap { gap: 1rem; }
+  .masthead nav { gap: 1rem; }
+  .masthead nav a { font-size: 0.85rem; }
+}
+
+/* --- Type -----------------------------------------------------------------
+   One display face at a few sizes. Very heavy, very tight. The biggest size
+   is for one line per page and should feel slightly too big. */
+
+.display {
+  font-size: clamp(2.8rem, 1.6rem + 6vw, 7rem);
+  line-height: 0.92;
+  letter-spacing: -0.045em;
+  font-weight: 900;
+  margin: 0;
+  text-wrap: balance;
+}
+.display--sm { font-size: clamp(2rem, 1.3rem + 3vw, 4rem); line-height: 0.98; letter-spacing: -0.035em; }
+.display--xl { font-size: clamp(3.4rem, 1.5rem + 9.5vw, 11rem); line-height: 0.88; letter-spacing: -0.05em; }
+
+.accent { color: var(--accent); }
+/* Hollow type: the outline of the word in the accent, nothing inside. */
+.outline { color: transparent; -webkit-text-stroke: 0.04em var(--accent); }
+
+.lede { font-size: clamp(1.15rem, 1rem + 0.8vw, 1.6rem); line-height: 1.35; max-width: var(--measure); color: var(--fg); margin: 0; }
+.prose { max-width: var(--measure); }
+.prose p { margin-block: 0 1em; color: var(--fg-soft); }
+.prose p:first-of-type { color: var(--fg); }
+.prose .display, .prose .display--sm { margin-bottom: 1rem; }
+
+.label {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 1rem;
+}
+
+section { padding-block: clamp(3rem, 8vw, 7rem); }
+section + section { border-top: 1px solid var(--line); }
+.tight { padding-block: clamp(2rem, 5vw, 4rem); }
+
+/* --- Hero ----------------------------------------------------------------- */
+.hero { display: grid; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
+@media (min-width: 56rem) { .hero { grid-template-columns: 1.25fr 1fr; } }
+.hero__shot { max-width: min(20rem, 100%); margin-inline: auto; }
+
+.stamp { width: min(36rem, 90vw); transition: transform .35s cubic-bezier(.2,.9,.3,1.4); }
+.stamp:hover { transform: rotate(-3deg) scale(1.02); }
+
+/* --- The changing word ------------------------------------------------------
+   Four words stacked in one grid cell, each fading in and out in turn. The
+   cell is as wide as the widest word, so the line never reflows. */
+.cycle { display: inline-grid; vertical-align: baseline; color: var(--accent); }
+.cycle > span { grid-area: 1 / 1; opacity: 0; animation: cycle 8s ease-in-out infinite; }
+.cycle > span:nth-child(2) { animation-delay: 2s; }
+.cycle > span:nth-child(3) { animation-delay: 4s; }
+.cycle > span:nth-child(4) { animation-delay: 6s; }
+@keyframes cycle {
+  0%   { opacity: 0; transform: translateY(0.35em); }
+  6%   { opacity: 1; transform: translateY(0); }
+  22%  { opacity: 1; transform: translateY(0); }
+  28%  { opacity: 0; transform: translateY(-0.35em); }
+  100% { opacity: 0; transform: translateY(-0.35em); }
+}
+
+/* --- Stickers --------------------------------------------------------------
+   Short claims, stuck on. Each one lands at a slightly different angle. */
+.stickers { display: flex; flex-wrap: wrap; gap: 0.6rem 0.5rem; margin: 0; padding: 0; list-style: none; }
+.sticker {
+  display: inline-block;
+  background: var(--accent);
+  color: var(--on-accent);
+  font-weight: 900;
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  padding: 0.45em 0.9em;
+  border-radius: 999px;
+  transform: rotate(-2.5deg);
+  transition: transform .2s ease;
+}
+.sticker:nth-child(2n) { transform: rotate(2deg); }
+.sticker:nth-child(3n) { transform: rotate(-1deg); }
+.sticker:hover { transform: rotate(0) scale(1.06); }
+.sticker--ghost { background: transparent; color: var(--accent); box-shadow: inset 0 0 0 2px var(--accent); }
+
+/* --- Buttons --------------------------------------------------------------- */
+.btn {
+  display: inline-block;
+  font-weight: 800;
+  font-size: 1rem;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  padding: 0.95rem 1.6rem;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--on-accent);
+  border: 2px solid var(--accent);
+  transition: transform .15s ease, background-color .15s ease, color .15s ease;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn--ghost { background: transparent; color: var(--accent); }
+.btn--ghost:hover { background: var(--accent); color: var(--on-accent); }
+.btn--lg { font-size: 1.2rem; padding: 1.15rem 2rem; }
+.actions { display: flex; flex-wrap: wrap; gap: 0.75rem 1rem; align-items: center; margin-top: 2rem; }
+
+/* --- Roster (home) ---------------------------------------------------------
+   Each app is a card in its own accent. The card only shows its colour when
+   you reach for it, so the home page stays the studio's red until you pick. */
+.roster { display: grid; gap: 1.25rem; }
+@media (min-width: 52rem) { .roster { grid-template-columns: 1fr 1fr; } }
+.card {
+  --card: var(--accent);
+  display: grid;
+  gap: 1.5rem;
+  align-content: start;
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  min-height: 24rem;
+  background: var(--bg-raise);
+  border: 1px solid var(--line);
+  border-radius: 1.75rem;
+  text-decoration: none;
+  color: inherit;
+  transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+}
+.card:hover { transform: translateY(-6px); border-color: var(--card); box-shadow: 0 30px 60px -30px color-mix(in srgb, var(--card) 60%, transparent); }
+.card--content { --card: var(--orange); }
+.card--plateau { --card: var(--gold); }
+.card__top { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
+.card__icon { width: 5.5rem; height: 5.5rem; border-radius: 22.4%; transition: transform .3s cubic-bezier(.2,.9,.3,1.4); }
+.card:hover .card__icon { transform: rotate(-8deg) scale(1.06); }
+.card__status { --accent: var(--card); --on-accent: #0A0A0A; }
+.card__name { font-size: clamp(2.4rem, 1.5rem + 3vw, 4rem); font-weight: 900; letter-spacing: -0.04em; line-height: 0.95; margin: 0; transition: color .25s ease; }
+.card:hover .card__name { color: var(--card); }
+.card__what { margin: 0; color: var(--fg-soft); font-size: 1.05rem; max-width: 30rem; }
+.card__meta { margin: auto 0 0; font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+.card__go { color: var(--card); font-weight: 800; }
+
+/* --- The index (Content's feature list) ------------------------------------
+   Ten numbered claims. The numeral is the accent, the headline is huge, the
+   body is short. Items with a screenshot get a third column on wide screens. */
+.index { border-top: 1px solid var(--line); }
+.idx {
+  display: grid;
+  grid-template-columns: minmax(3.5rem, 5rem) 1fr;
+  gap: clamp(1rem, 3vw, 2.5rem);
+  padding-block: clamp(2.5rem, 5vw, 4.5rem);
+  border-bottom: 1px solid var(--line);
+  align-items: start;
+}
+.idx__n { font-weight: 900; font-size: clamp(1.6rem, 1rem + 2vw, 2.6rem); letter-spacing: -0.04em; line-height: 1; color: var(--accent); font-variant-numeric: tabular-nums; padding-top: .35rem; }
+.idx h3 { font-size: clamp(1.9rem, 1.2rem + 3vw, 3.6rem); font-weight: 900; letter-spacing: -0.04em; line-height: 0.95; margin: 0 0 1rem; text-wrap: balance; }
+.idx p { margin: 0 0 1em; max-width: var(--measure); color: var(--fg-soft); }
+.idx p:last-child { margin-bottom: 0; }
+.idx strong { color: var(--fg); }
+.idx__shot { grid-column: 2; margin-top: 1.5rem; }
+.idx__shot .shot { max-width: min(17rem, 100%); }
+.idx__shot--wide .shot { max-width: 100%; }
+.idx__shot--row { display: flex; gap: 1rem; flex-wrap: wrap; }
+.idx__shot--row .shot { max-width: min(14rem, 100%); flex: 1 1 10rem; }
+/* On a phone the numeral goes above the headline instead of beside it, so
+   the text and the screenshots get the full width. */
+@media (max-width: 40rem) {
+  .idx { grid-template-columns: 1fr; gap: 0.75rem; }
+  .idx__shot { grid-column: 1; }
+  .idx__n { padding-top: 0; }
+}
+@media (min-width: 60rem) {
+  .idx--shot { grid-template-columns: minmax(3.5rem, 5rem) 1fr minmax(0, 20rem); }
+  .idx--shot .idx__shot { grid-column: 3; grid-row: 1; margin-top: 0; justify-self: end; }
+  .idx--shot .idx__shot--row { grid-column: 3; min-width: 20rem; }
+}
+
+.shot { border: 1px solid var(--line); background: #000; border-radius: 1.25rem; overflow: hidden; }
+.shot--phone { border-radius: 2.2rem; }
+.grid-shots { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(16rem, 100%), 1fr)); align-items: start; }
+
+/* --- Big words (Plateau's list, and any bold list) -------------------------- */
+.bigwords { list-style: none; margin: 0; padding: 0; }
+.bigwords li {
+  font-size: clamp(1.8rem, 1.2rem + 2.8vw, 3.6rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+  padding-block: .35rem;
+  border-bottom: 1px solid var(--line);
+  transition: color .2s ease, padding-left .2s ease;
+}
+.bigwords li:hover { color: var(--accent); padding-left: .4em; }
+
+/* --- Feature rows (two columns of anything) ---------------------------------- */
+.feature { display: grid; gap: clamp(1.5rem, 4vw, 3rem); align-items: center; }
+.feature--top { align-items: start; }
+@media (min-width: 52rem) {
+  .feature { grid-template-columns: 1fr 1fr; }
+  .feature--flip > :first-child { order: 2; }
+}
+.feature h3 { font-size: clamp(1.5rem, 1rem + 1.8vw, 2.4rem); letter-spacing: -0.03em; line-height: 1.02; margin: 0 0 .6rem; font-weight: 900; }
+
+/* --- The closer ------------------------------------------------------------- */
+.closer { text-align: left; }
+.closer .display--xl { margin-bottom: 2rem; }
+
+/* --- Footer ----------------------------------------------------------------- */
+.colophon {
+  border-top: 1px solid var(--line);
+  padding-block: 2.5rem 3.5rem;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+.colophon .wrap { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; }
+.colophon a { text-decoration: none; }
+.colophon a:hover { color: var(--accent); }
+.colophon .spacer { margin-left: auto; }
+
+/* --- Long-form (privacy policy) -------------------------------------------- */
+.doc { max-width: 42rem; }
+.doc p, .doc li { color: var(--fg-soft); }
+.doc strong { color: var(--fg); }
+.doc h2 { font-size: clamp(1.4rem, 1rem + 1.4vw, 2rem); letter-spacing: -0.03em; margin: 2.75rem 0 .75rem; font-weight: 900; color: var(--fg); }
+.doc h3 { font-size: 1.1rem; margin: 1.75rem 0 .5rem; color: var(--fg); }
+.doc ul { padding-left: 1.1rem; }
+.doc li { margin-bottom: .5rem; }
+.doc table { width: 100%; border-collapse: collapse; margin: 1.25rem 0; font-size: .92rem; }
+.doc th, .doc td { text-align: left; padding: .55rem .6rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+.doc th { font-family: var(--mono); font-size: .66rem; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
+.doc code { font-family: var(--mono); font-size: .9em; color: var(--fg); }
+.doc a { color: var(--accent); }
+
+/* ==========================================================================
+   Worlds: same black, a different colour holding the pen
+   ========================================================================== */
+[data-world="content"] { --accent: var(--orange); }
+[data-world="plateau"] { --accent: var(--gold); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+  html { scroll-behavior: auto; }
+  .cycle > span { display: none; }
+  .cycle > span:first-child { display: inline; opacity: 1; }
+  .sticker { transform: none; }
+}

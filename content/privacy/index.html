@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en" data-world="content">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Content Privacy Policy · Postal Media</title>
+<meta name="description" content="What Content does with information. No account, no server of ours, no tracking.">
+<link rel="stylesheet" href="/assets/css/site.css">
+<link rel="icon" href="/assets/brand/content-icon.png">
+</head>
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <a class="home" href="/">Postal Media</a>
+    <nav>
+      <a href="/content/">Content</a>
+      <a href="/plateau/">Plateau</a>
+      <a href="/support/">Support</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section>
+    <div class="wrap">
+      <p class="label">Content · Legal</p>
+      <h1 class="display display--sm" style="margin-bottom:2rem">Privacy Policy</h1>
+      <div class="doc">
+<p><strong>Last updated: 6 September 2026</strong></p>
+<p>Content is made by Postal Media. This policy describes exactly what the app does with information. It is written from an audit of the app&#x27;s own source code rather than from a template, and it is meant to be checked against the app&#x27;s behaviour.</p>
+<h2>The short version</h2>
+<p>Content has no account, no login, and no server of ours. We do not receive your library, your notes, your ratings, or anything else you put into the app. There is no analytics, no crash reporting, no advertising, and no tracking of any kind. The app contains no third-party code at all.</p>
+<p>Your library lives on your device, and in your own iCloud account if you leave syncing on. We cannot read either.</p>
+<p>The app does have to ask other people&#x27;s catalogues what a film or a book is. That is the one thing that leaves your device, and it is described in full below.</p>
+<h2>What we collect</h2>
+<p>Nothing.</p>
+<p>We operate no server, no database and no API. There is no sign-up, no password, and no user record anywhere. We have no way to identify you and no way to see what is in your library.</p>
+<p>The app contains no analytics, telemetry, crash-reporting, attribution or advertising software, and no third-party code of any kind. It is built entirely from Apple&#x27;s own frameworks. It never reads or creates an advertising identifier, a vendor identifier, or any per-install token.</p>
+<h2>What leaves your device</h2>
+<h3>Searches</h3>
+<p>Content does not hold a catalogue of its own. When you search, the text you type is sent to the services that do, so they can answer:</p>
+<table><thead><tr><th>Service</th><th>Who runs it</th><th>What is sent</th></tr></thead><tbody>
+<tr><td>TMDB</td><td>The Movie Database</td><td>Your search text, and our API key</td></tr>
+<tr><td>Open Library</td><td>Internet Archive</td><td>Your search text</td></tr>
+<tr><td>iTunes Search</td><td>Apple</td><td>Your search text</td></tr>
+<tr><td>RAWG</td><td>RAWG</td><td>Your search text, and our API key</td></tr>
+<tr><td>Apple Music</td><td>Apple</td><td>Your search text (only after you allow it)</td></tr>
+</tbody></table>
+<p><strong>One search can reach several of these at once.</strong> The app&#x27;s default search category is &quot;All&quot;, which asks every enabled provider in parallel. If you want a search to reach only one service, choose that category first.</p>
+<p>These requests carry your search text and nothing else we add: no account, no device identifier, no advertising identifier, and none of your library. As with any request to any website, the service on the other end will also see your IP address and your device&#x27;s standard user-agent. Each of those services has its own privacy policy, and we do not control what they do with what they receive.</p>
+<p>Opening an item&#x27;s detail screen sends that item&#x27;s catalogue ID, not your search text and not your notes, to the service the item came from, to fetch its description, cast, cover art and streaming availability. Cover images are downloaded from those services&#x27; image servers.</p>
+<p>Two smaller ones: album artwork lookups go to MusicBrainz and the Cover Art Archive (the app identifies itself with an app name and contact address, as MusicBrainz asks), and cross-service music links are resolved through Odesli.</p>
+<h3>iCloud</h3>
+<p>If <strong>Sync Personal Library to iCloud</strong> is on (it is on by default, and can be turned off in Settings on iPhone, iPad and Mac), your libraries, lists and their items are mirrored to <strong>your own private iCloud database</strong> using Apple&#x27;s CloudKit. This is your iCloud account, not ours. We have no access to it; Apple gives developers no read access to a user&#x27;s private CloudKit data. Turning the setting off stops the mirroring entirely (it takes effect the next time the app launches).</p>
+<p><strong>Shared Libraries</strong> are different, and the only feature that deliberately shows your data to another person. When you create one and invite someone, that library and its items are shared through Apple&#x27;s CloudKit sharing with the people you invite, and with nobody else. If you have set a display name in Settings, it travels with items you add so other members can see who added what. Your personal library, your private notes and your own star ratings are <strong>not</strong> part of a Shared Library; they stay yours. Leaving or deleting a shared library removes your access to it.</p>
+<h3>Nothing else</h3>
+<p>Nothing goes to us, because there is nowhere for it to go: there is no server of ours for the app to talk to. It does not phone home, check in, or report on how you use it.</p>
+<h2>What stays on your device</h2>
+<p>Your library, your lists, your notes, your ratings, your reading and watching dates, and any reminders you set are stored on your device using Apple&#x27;s SwiftData. Cover images and the descriptions the app has fetched are cached locally so the app works offline and does not re-ask the same question.</p>
+<p>Daily backups are kept <strong>on your device only</strong>. They are never uploaded to us or anywhere else.</p>
+<h2>Permissions the app asks for</h2>
+<p>Content asks for three things, always in the moment you use the feature and never at launch. Refusing any of them leaves the rest of the app working.</p>
+<ul>
+<li><strong>Apple Music</strong>, so you can search Apple&#x27;s album catalogue. The app only</li>
+<p>  ever searches. It does not read your music library or what you listen to.</p>
+<li><strong>Calendar (write only)</strong>, so a reminder you set can be added to your</li>
+<p>  calendar. The app can only add events. It cannot read what is already in   your calendar.</p>
+<li><strong>Notifications</strong>, so a reminder can tell you when something is out.</li>
+<p>  These are scheduled and delivered on your device; the reminder text never   leaves it.</p>
+</ul>
+<p>On Apple TV, the app also checks which streaming apps are installed on the device, so it can offer to open a title in one you actually have. This is a yes/no check against a fixed list of streaming services. Nothing about it is recorded or transmitted.</p>
+<h2>Files you export</h2>
+<p>Everything you export is created on your device and goes wherever you send it. We never receive a copy.</p>
+<ul>
+<li><strong>CSV and PDF exports</strong> contain, for each item: title, description,</li>
+<p>  genre, who recommended it, the date you finished it, and your star   rating. They deliberately <strong>do not</strong> include your private notes.</p>
+<li><strong>Library transfer files</strong> (<code>.contentlibrary</code>) are meant to move your</li>
+<p>  whole library to another device and are correspondingly complete: they   do include your notes, dates and ratings. Treat one like a copy of your   library, because that is what it is.</p>
+<li><strong>Shared list files</strong> (<code>.content</code>) and plain-text lists contain titles and</li>
+<p>  basic catalogue details only: no notes, no dates, no ratings.</p>
+</ul>
+<h2>Children</h2>
+<p>Content is a general-audience app. It does not knowingly collect anything from anyone, of any age, because it does not collect anything at all.</p>
+<h2>Changes to this policy</h2>
+<p>If this policy changes, the date at the top changes with it, and the current version will always be at the URL where you found this one.</p>
+<h2>Contact</h2>
+<p>Questions about this policy, or about anything the app does with information: <strong>help@postalmedia.io</strong></p>
+<p>Postal Media</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="colophon">
+  <div class="wrap">
+    <span>© 2026 Postal Media</span>
+    <span class="spacer"></span>
+    <a href="/content/">Content</a>
+    <a href="/support/">Support</a>
+    <a href="mailto:help@postalmedia.io">help@postalmedia.io</a>
+  </div>
+</footer>
+
+</body>
+</html>
