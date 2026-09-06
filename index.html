@@ -3,6 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self'; style-src 'self'; script-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests">
+  <link rel="canonical" href="https://www.postalmedia.io/">
   <meta name="description" content="Postal Media makes focused apps for Apple platforms. Home of Content, a simple place to track what you want to watch, read, play, and listen to.">
   <title>Postal Media | Independent App Studio</title>
   <link rel="stylesheet" href="styles.css">
@@ -99,6 +102,6 @@
     </div>
   </footer>
 
-  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <script src="site.js" defer></script>
 </body>
 </html>
