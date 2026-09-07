@@ -132,8 +132,45 @@ section + section { border-top: 1px solid var(--line); }
 @media (min-width: 56rem) { .hero { grid-template-columns: 1.25fr 1fr; } }
 .hero__shot { max-width: min(20rem, 100%); margin-inline: auto; }
 
-.stamp { width: min(36rem, 90vw); transition: transform .35s cubic-bezier(.2,.9,.3,1.4); }
-.stamp:hover { transform: rotate(-3deg) scale(1.02); }
+/* The stamp is ink on paper, so it gets paper. Not decoration: the mark
+   knocks the inside of the mouth out in white, and those knockouts only
+   read as holes against something white. On the page's own black they
+   would light up as solid white shapes and the face would fall apart. */
+.stamp-card {
+  position: relative;
+  display: inline-block;
+  padding: clamp(1.5rem, 4vw, 3rem) clamp(1.75rem, 5vw, 3.5rem);
+  max-width: 100%;
+  transform: rotate(-1.2deg);
+  transition: transform .35s cubic-bezier(.2,.9,.3,1.4);
+}
+.stamp-card:hover { transform: rotate(0deg) scale(1.01); }
+
+/* The paint sits behind the mark and is sized by it, so the swash grows
+   and shrinks with the logo instead of needing its own breakpoints.
+   Deliberately bled past the padding on every side: a brushstroke that
+   stopped exactly at the artwork's edge would read as a shape rather than
+   as paint. */
+.paint {
+  position: absolute;
+  inset: -7% -5%;
+  width: 110%;
+  height: 114%;
+  pointer-events: none;
+  /* The stamp is tilted inside its own artwork, so an upright swash behind
+     it reads as a rectangle someone forgot to rotate. This is the mark's
+     own lean, measured off the render, applied to the paint so the two sit
+     on the same axis. The card's rotation is on top of both. */
+  transform: rotate(-4.8deg);
+}
+/* Rotating a box makes it wider than its own width: half its height times
+   the sine of the angle, at each end. On a phone that was enough to push
+   the swash past the viewport and put a horizontal scrollbar on the page,
+   so the bleed comes in where there is no room for it. */
+@media (max-width: 40rem) {
+  .paint { inset: -7% -1%; width: 102%; }
+}
+.stamp { position: relative; width: min(34rem, 100%); }
 
 /* --- The changing word ------------------------------------------------------
    Four words stacked in one grid cell, each fading in and out in turn. The
@@ -262,6 +299,34 @@ section + section { border-top: 1px solid var(--line); }
 .shot { border: 1px solid var(--line); background: #000; border-radius: 1.25rem; overflow: hidden; }
 .shot--phone { border-radius: 2.2rem; }
 .grid-shots { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(16rem, 100%), 1fr)); align-items: start; }
+
+/* --- The maker's note -----------------------------------------------------
+   The section above this one argues about the market. This one is a person
+   talking, so it gets a different shape rather than a third stack of
+   paragraphs in the same voice: a raised ground, the accent holding the
+   left edge, and a narrower measure so it reads like a letter rather than
+   a page. It sits directly under the section above it, sharing that
+   section's bottom padding instead of adding a second gap. */
+.note-band { padding-top: 0; border-top: 0; }
+.note {
+  max-width: 46rem;
+  background: var(--bg-raise);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 1.25rem 1.25rem 0;
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+}
+.note p { color: var(--fg-soft); max-width: 36rem; margin: 0 0 1em; }
+.note p:last-child { margin-bottom: 0; }
+.note .display--sm { margin-bottom: 1rem; }
+/* A name, not another paragraph: the accent and the extra space above are
+   what say the note has ended and a person wrote it. */
+.note .signature {
+  margin-top: 1.5rem;
+  color: var(--accent);
+  font-weight: 800;
+  font-size: 1.1rem;
+  letter-spacing: -0.01em;
+}
 
 /* --- Big words (Plateau's list, and any bold list) -------------------------- */
 .bigwords { list-style: none; margin: 0; padding: 0; }
